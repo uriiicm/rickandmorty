@@ -1,21 +1,23 @@
 import { useState,useEffect } from 'react';
-import {getCharacter} from '../../../services/rickandmorty';
+import {getCharacter} from '../../services/rickandmorty';
+import { useSelector } from 'react-redux';
 function CardRick(){
     const [rickList,setRickList]= useState([]);
+    const currentPage = useSelector((state) => state.currentPage);
     useEffect(()=>{
         async function fetchData(){
             try{
-                const data = await getCharacter();
-                console.log('data',data);
+                const data = await getCharacter(currentPage);
                 setRickList(data.results)
             }catch(error){
                 console.error('Error fetching user data: ',error)
             }
         }
         fetchData();
-    },[]);
+    },[currentPage]);
 
     return (
+        
         <div className="grid grid-cols-6 gap-5 p-20">
             {rickList.map((charter)=>(
                 <div  key={charter.id} className="col-span-6 mt-5 bg-opacity-50 border border-gray-100 rounded shadow-lg cursor-pointer bg-gradient-to-b from-gray-200 backdrop-blur-20 to-gray-50 md:col-span-3 lg:col-span-2 ">
@@ -35,7 +37,7 @@ function CardRick(){
                 
                 </div>
                  <div className="flex justify-center px-2 mx-3 my-2 text-sm font-medium text-gray-400">
-                        <img className="w-[300px] h-[300px] rounded-full shadow-2xl object-cover "
+                        <img className="w-[300px] h-[300px] rounded-full shadow-2xl object-cover " alt={charter.name}
                             src={charter.image}/>
                  </div>
                  <div className="mb-5 border-t border-gray-100">
@@ -51,9 +53,12 @@ function CardRick(){
 
                     </div>
                 </div>
-            ))}
+            ))} 
         </div>
+        
     )
 }
+
+
 
 export default CardRick;

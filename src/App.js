@@ -1,9 +1,16 @@
-import logo from './logo.svg';
 import './App.css';
-import CardRick from './components/common/card/card'
+import CardRick from './components/common/card';
+import {CircularPagination} from './components/common/paginator';
+import { Provider } from 'react-redux';
+import store from './store';
 function App() {
   return (
-    <CardRick/>
+    <Provider store={store}>
+    <div>
+      <CardRick/>
+      <CircularPagination/>
+    </div>
+    </Provider>
   );
 }
 
