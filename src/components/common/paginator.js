@@ -35,7 +35,7 @@ const prev = () => {
     dispatch({ type: 'SET_CURRENT_PAGE', payload: newPage });
   }; 
   return (
-    <div className="flex items-center gap-4 mb-5">
+    <div className="flex items-center justify-center gap-4 mb-5">
       <Button
         variant="text"
         className="flex items-center gap-2 rounded-full"
